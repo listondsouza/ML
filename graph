@@ -1,0 +1,45 @@
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import SpectralClustering
+from sklearn.preprocessing import StandardScaler
+
+# Step 1: Create dataset
+df = pd.DataFrame({
+    'Age': [20, 22, 25, 28, 30, 45, 48, 50, 55, 58],
+    'Spending': [80, 85, 78, 90, 88, 30, 35, 25, 32, 28]
+})
+
+print("Original Dataset:")
+print(df)
+
+# Step 2: Standardize data
+scaler = StandardScaler()
+X = scaler.fit_transform(df)
+
+# Step 3: Apply Graph-Based Clustering
+model = SpectralClustering(
+    n_clusters=2,
+    affinity='nearest_neighbors',
+    random_state=42
+)
+
+clusters = model.fit_predict(X)
+
+# Step 4: Display clusters
+df['Cluster'] = clusters
+
+print("\nClustered Dataset:")
+print(df)
+
+# Step 5: Visualize clusters
+plt.scatter(
+    df['Age'],
+    df['Spending'],
+    c=df['Cluster']
+)
+
+plt.xlabel("Age")
+plt.ylabel("Spending")
+plt.title("Graph-Based Clustering")
+plt.show()
