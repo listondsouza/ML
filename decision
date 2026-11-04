@@ -18,32 +18,29 @@ y = df['result']
 
 # Split dataset
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X, y, test_size=0.2, random_state=42, stratify=y
 )
 
 # Decision Tree
 dt = DecisionTreeClassifier(random_state=42)
 dt.fit(X_train, y_train)
 
-# Predict using Decision Tree
 dt_pred = dt.predict(X_test)
 
 print("Decision Tree Accuracy:",
       accuracy_score(y_test, dt_pred))
 
 print("Decision Tree Confusion Matrix:")
-print(confusion_matrix(y_test, dt_pred))
-
+print(confusion_matrix(y_test, dt_pred, labels=[0, 1]))
 
 # Random Forest
 rf = RandomForestClassifier(n_estimators=10, random_state=42)
 rf.fit(X_train, y_train)
 
-# Predict using Random Forest
 rf_pred = rf.predict(X_test)
 
 print("\nRandom Forest Accuracy:",
       accuracy_score(y_test, rf_pred))
 
 print("Random Forest Confusion Matrix:")
-print(confusion_matrix(y_test, rf_pred))
+print(confusion_matrix(y_test, rf_pred, labels=[0, 1]))
