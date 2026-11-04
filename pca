@@ -13,7 +13,7 @@ df = pd.DataFrame({
 print("Original Data:")
 print(df)
 
-# Step 2: Standardize the data
+# Step 2: Standardize data
 scaler = StandardScaler()
 X = scaler.fit_transform(df)
 
@@ -27,7 +27,7 @@ print("\nCovariance Matrix:")
 print(cov_matrix)
 
 # Step 4: Calculate eigenvalues and eigenvectors
-eigenvalues, eigenvectors = np.linalg.eig(cov_matrix)
+eigenvalues, eigenvectors = np.linalg.eigh(cov_matrix)
 
 print("\nEigenvalues:")
 print(eigenvalues)
@@ -36,15 +36,15 @@ print("\nEigenvectors:")
 print(eigenvectors)
 
 # Step 5: Select first 2 principal components
-components = eigenvectors[:, :2]
+components = eigenvectors[:, -2:]
 
-# Step 6: Transform original data
+# Step 6: Transform data
 X_pca = np.dot(X, components)
 
 print("\nTransformed Data:")
 print(X_pca)
 
-# Step 7: Reconstruct original standardized data
+# Step 7: Reconstruct standardized data
 X_reconstructed = np.dot(X_pca, components.T)
 
 print("\nReconstructed Standardized Data:")
